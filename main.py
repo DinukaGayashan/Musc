@@ -2,6 +2,7 @@ import streamlit as st
 from generators import generator
 import numpy as np
 
+
 def function():
     data = generator.generate_music()
     st.audio(data, sample_rate=44100)
@@ -16,8 +17,8 @@ def function():
 
     # Generate a 440 Hz sine wave
     note_la = np.sin(frequency_la * t * 2 * np.pi)
-    # print(type(note_la))
-    # print(note_la)
+    print(type(note_la))
+    print(note_la)
     st.audio(note_la, sample_rate=sample_rate)
 
     st.write("""
@@ -33,5 +34,3 @@ if __name__ == "__main__":
 
     if st.button("Generate"):
         function()
-
-

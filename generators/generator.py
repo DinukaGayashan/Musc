@@ -1,9 +1,21 @@
 import numpy as np
+import io
 from mido import MidiFile, MidiTrack, Message
 from keras.models import load_model
-
+import pretty_midi
+from scipy.io import wavfile
 
 def generate_music():
+
+    # midi_file = "generated_melody.mid"
+    # midi_data = pretty_midi.PrettyMIDI(midi_file)
+    # audio_data = midi_data.fluidsynth()
+    # audio_data = np.int16(
+    #     audio_data / np.max(np.abs(audio_data)) * 32767 * 0.9
+    # )  # -- Normalize for 16 bit audio https://github.com/jkanner/streamlit-audio/blob/main/helper.p
+    # virtualfile = io.BytesIO()
+    # wavfile.write(virtualfile, 44100, audio_data)
+    # return virtualfile
 
     # Define the sequence length and the number of unique notes you want to generate
     sequence_length = 100
@@ -45,4 +57,22 @@ def generate_music():
         output_track.append(msg)
 
     # return output_midi_file
-    output_midi_file.save('generated_melody.mid')
+    # output_midi_file.save('generated_melody.mid')
+    res=bytes(generated_notes)
+    res2=np.frombuffer(res, dtype=np.uint8)
+
+    rescaled_array2=np.sin(res2* 10 * 2 * np.pi)
+
+    # Step 1: Normalize the values to [0, 1]
+    min_value = np.min(rescaled_array2)
+    max_value = np.max(rescaled_array2)
+    normalized_array = (rescaled_array2 - min_value) / (max_value - min_value)
+
+    # Step 2: Rescale the values to the desired range
+    desired_min = -0.5  # Replace with your desired minimum value
+    desired_max = 0.5  # Replace with your desired maximum value
+    rescaled_array = (normalized_array * (desired_max - desired_min)) + desired_min
+
+    print(type(rescaled_array))
+    print(rescaled_array)
+    return rescaled_array
