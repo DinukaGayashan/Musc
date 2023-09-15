@@ -2,3 +2,5 @@ generated_melodies
 models/trained_models
 generators/__pycache__
 ui/__pycache__
+models/__pycache__
+datasets

@@ -13,7 +13,7 @@ def generate_music():
     unique_notes = 128  # Adjust based on your MIDI range (typically 128 for a full MIDI range)
     
     # Load the trained model
-    loaded_model = load_model('models/trained_models/trained_model.h5')
+    loaded_model = load_model('models/trained_models/trained_model.keras')
     
     # Initialize the pattern with a random seed sequence of length sequence_length
     start = np.random.randint(0, unique_notes - 1)
