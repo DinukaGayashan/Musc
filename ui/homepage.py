@@ -1,13 +1,16 @@
 import streamlit as st
+from generators import melody_generator
 
 
-def function():
-    print("Hello")
+def generate_melody():
+    audio_file = melody_generator.generate_music()
+    st.audio(audio_file)
 
-#
-# st.write("""
-# # Musc
-# music from nowhere
-# """)
-#
-# st.button("press", on_click=function())
+def homepage():
+    st.title("Musc")
+    st.write("""
+    music from nowhere
+    """)
+
+    if st.button("Generate"):
+        generate_melody()

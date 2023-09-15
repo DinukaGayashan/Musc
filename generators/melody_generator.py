@@ -4,6 +4,7 @@ from mido import MidiFile, MidiTrack, Message
 from keras.models import load_model
 import pretty_midi
 from scipy.io import wavfile
+import uuid
 
 
 def generate_music():
@@ -12,7 +13,7 @@ def generate_music():
     unique_notes = 128  # Adjust based on your MIDI range (typically 128 for a full MIDI range)
     
     # Load the trained model
-    loaded_model = load_model('generators/models/trained_model.h5')
+    loaded_model = load_model('models/trained_models/trained_model.h5')
     
     # Initialize the pattern with a random seed sequence of length sequence_length
     start = np.random.randint(0, unique_notes - 1)
@@ -47,7 +48,7 @@ def generate_music():
         output_track.append(msg)
     
     # return output_midi_file
-    midi_file_name='generated_melodies/generated_melody.mid'
+    midi_file_name = f'generated_melodies/generated_melody_{uuid.uuid1()}.mid'
     output_midi_file.save(midi_file_name)
 
     midi_file = midi_file_name
@@ -56,6 +57,6 @@ def generate_music():
     audio_data = np.int16(
         audio_data / np.max(np.abs(audio_data)) * 32767 * 0.9
     )
-    virtualfile = io.BytesIO()
-    wavfile.write(virtualfile, 44100, audio_data)
-    return virtualfile
+    virtual_file = io.BytesIO()
+    wavfile.write(virtual_file, 44100, audio_data)
+    return virtual_file
