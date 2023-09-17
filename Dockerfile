@@ -17,4 +17,4 @@ RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
 
 COPY . .
 
-RUN python3.10 -m pip install tensorflow keras numpy scipy streamlit pretty_midi pyfluidsynth mido
+RUN python3.10 -m pip install tensorflow keras numpy scipy streamlit streamlit-option-menu pretty_midi pyfluidsynth mido

@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_option_menu import option_menu
 from generators import melody_generator
 from models import model
 
@@ -18,9 +19,19 @@ def homepage():
     music from nowhere
     """)
 
-    if st.button("Generate"):
-        with st.spinner('Hold on for a new melody'):
-            generate_melody()
+    with st.sidebar:
+        selected=option_menu(
+            menu_title=None,
+            options=["Music", "Models"],
+            icons=["music-note-beamed","cpu"]
+        )
 
-    if st.button("Train Models"):
-        train_models()
+    if selected=="Music":
+        if st.button("Generate"):
+            with st.spinner('Hold on for a new melody'):
+                generate_melody()
+
+    if selected=="Models":
+        if st.button("Train Models"):
+            with st.spinner('Hold on for a new model'):
+                train_models()
