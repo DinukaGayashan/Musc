@@ -9,7 +9,8 @@ from keras.utils import to_categorical
 def train_model():
     # Define the sequence length and the number of unique notes you want to generate
     sequence_length = 100
-    unique_notes = 128  # Adjust based on your MIDI range (typically 128 for a full MIDI range)
+    # Adjust based on your MIDI range (typically 128 for a full MIDI range)
+    unique_notes = 128
 
     # Directory containing your MIDI files
     midi_directory = 'datasets'  # Replace with the path to your MIDI files directory
@@ -46,7 +47,8 @@ def train_model():
             all_output_sequences.extend(output_sequences)
 
     # Prepare the data for training
-    X = np.reshape(all_input_sequences, (len(all_input_sequences), sequence_length, 1))
+    X = np.reshape(all_input_sequences, (len(
+        all_input_sequences), sequence_length, 1))
     X = X / float(unique_notes)
 
     y = np.array(all_output_sequences)
@@ -54,7 +56,8 @@ def train_model():
 
     # Build the LSTM model
     model = Sequential()
-    model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True))
+    model.add(LSTM(256, input_shape=(
+        X.shape[1], X.shape[2]), return_sequences=True))
     model.add(LSTM(256))
     model.add(Dense(unique_notes, activation='softmax'))
 

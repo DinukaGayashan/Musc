@@ -4,3 +4,4 @@ generators/__pycache__
 ui/__pycache__
 models/__pycache__
 datasets
+.vscode

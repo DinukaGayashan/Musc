@@ -20,18 +20,18 @@ def homepage():
     """)
 
     with st.sidebar:
-        selected=option_menu(
+        selected = option_menu(
             menu_title=None,
             options=["Music", "Models"],
-            icons=["music-note-beamed","cpu"]
+            icons=["music-note-beamed", "cpu"]
         )
 
-    if selected=="Music":
+    if selected == "Music":
         if st.button("Generate"):
             with st.spinner('Hold on for a new melody'):
                 generate_melody()
 
-    if selected=="Models":
+    if selected == "Models":
         if st.button("Train Models"):
             with st.spinner('Hold on for a new model'):
                 train_models()
