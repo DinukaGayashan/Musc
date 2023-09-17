@@ -7,7 +7,7 @@ from scipy.io import wavfile
 import uuid
 
 
-def generate_music():
+def generate_music(duration, temperature):
     # Define the sequence length and the number of unique notes you want to generate
     sequence_length = 100
     # Adjust based on your MIDI range (typically 128 for a full MIDI range)
@@ -21,13 +21,13 @@ def generate_music():
     pattern = [start] * sequence_length
     generated_notes = []
 
-    for i in range(500):  # Adjust the length of the generated melody
+    for i in range(duration * 5):  # Adjust the length of the generated melody
         x = np.reshape(pattern, (1, sequence_length, 1))
         x = x / float(unique_notes)
         prediction = loaded_model.predict(x, verbose=0)
 
         # Apply temperature for randomness control
-        temperature = 0.7  # Experiment with different values
+        # temperature = 0.7  # Experiment with different values
         prediction = np.log(prediction) / temperature
         prediction = np.exp(prediction) / np.sum(np.exp(prediction))
 
