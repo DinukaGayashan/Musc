@@ -4,12 +4,10 @@ from ui import music_page, model_page
 
 
 def homepage():
-    st.title("Musc")
-    st.write("""
-    music from nowhere
-    """)
-
     with st.sidebar:
+        st.title("Musc")
+        st.caption("music from nowhere")
+        st.divider()
         selected = option_menu(
             menu_title=None,
             options=["Music", "Models"],

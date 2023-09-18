@@ -6,14 +6,14 @@ from keras.layers import LSTM, Dense
 from keras.utils import to_categorical
 
 
-def train_model():
+def train_model(name):
     # Define the sequence length and the number of unique notes you want to generate
     sequence_length = 100
     # Adjust based on your MIDI range (typically 128 for a full MIDI range)
     unique_notes = 128
 
     # Directory containing your MIDI files
-    midi_directory = 'datasets'  # Replace with the path to your MIDI files directory
+    midi_directory = f'datasets/{name}'  # Replace with the path to your MIDI files directory
 
     # Create lists to store input sequences and output sequences from multiple MIDI files
     all_input_sequences = []
@@ -64,7 +64,7 @@ def train_model():
     model.compile(loss='categorical_crossentropy', optimizer='adam')
 
     # Train the model (you may need more epochs for better results)
-    model.fit(X, y, epochs=50, batch_size=64)
+    model.fit(X, y, epochs=10, batch_size=64)
 
     # Save the trained model to a file
-    model.save('models/trained_models/trained_model.keras')
+    model.save(f'models/trained_models/{name}.keras')

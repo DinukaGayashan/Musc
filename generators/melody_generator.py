@@ -7,14 +7,14 @@ from scipy.io import wavfile
 import uuid
 
 
-def generate_music(duration, temperature):
+def generate_music(model, duration, temperature):
     # Define the sequence length and the number of unique notes you want to generate
     sequence_length = 100
     # Adjust based on your MIDI range (typically 128 for a full MIDI range)
     unique_notes = 128
 
     # Load the trained model
-    loaded_model = load_model('models/trained_models/trained_model.keras')
+    loaded_model = load_model(f'models/trained_models/{model}.keras')
 
     # Initialize the pattern with a random seed sequence of length sequence_length
     start = np.random.randint(0, unique_notes - 1)
