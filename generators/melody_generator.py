@@ -5,6 +5,7 @@ from keras.models import load_model
 import pretty_midi
 from scipy.io import wavfile
 import uuid
+from ui import utility
 
 
 def generate_music(model, duration, temperature):
@@ -50,7 +51,7 @@ def generate_music(model, duration, temperature):
 
     # return output_midi_file
     midi_file_name = f'generated_melodies/generated_melody_{uuid.uuid1()}.mid'
-    output_midi_file.save(midi_file_name)
+    utility.save_melody(midi_file_name, output_midi_file)
 
     midi_file = midi_file_name
     midi_data = pretty_midi.PrettyMIDI(midi_file)

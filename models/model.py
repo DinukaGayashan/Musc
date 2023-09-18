@@ -4,7 +4,7 @@ from mido import MidiFile
 from keras.models import Sequential
 from keras.layers import LSTM, Dense
 from keras.utils import to_categorical
-
+from ui import utility
 
 def train_model(name):
     # Define the sequence length and the number of unique notes you want to generate
@@ -67,4 +67,4 @@ def train_model(name):
     model.fit(X, y, epochs=10, batch_size=64)
 
     # Save the trained model to a file
-    model.save(f'models/trained_models/{name}.keras')
+    utility.save_model(name,model)
