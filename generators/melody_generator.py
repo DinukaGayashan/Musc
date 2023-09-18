@@ -8,7 +8,7 @@ import uuid
 from ui import utility
 
 
-def generate_music(model, duration, temperature):
+def generate_music(model, duration, tempo, temperature):
     # Define the sequence length and the number of unique notes you want to generate
     sequence_length = 100
     # Adjust based on your MIDI range (typically 128 for a full MIDI range)
@@ -22,7 +22,8 @@ def generate_music(model, duration, temperature):
     pattern = [start] * sequence_length
     generated_notes = []
 
-    for i in range(duration * 5):  # Adjust the length of the generated melody
+    # Adjust the length of the generated melody
+    for i in range(int(duration * tempo) * 5):
         x = np.reshape(pattern, (1, sequence_length, 1))
         x = x / float(unique_notes)
         prediction = loaded_model.predict(x, verbose=0)
@@ -43,10 +44,10 @@ def generate_music(model, duration, temperature):
     output_midi_file.tracks.append(output_track)
 
     for note in generated_notes:
-        msg = Message('note_on', note=note, velocity=64, time=100)
+        msg = Message('note_on', note=note, velocity=64, time=int(100/tempo))
         output_track.append(msg)
 
-        msg = Message('note_off', note=note, velocity=64, time=100)
+        msg = Message('note_off', note=note, velocity=64, time=int(100/tempo))
         output_track.append(msg)
 
     # return output_midi_file
