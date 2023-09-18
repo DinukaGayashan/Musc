@@ -5,7 +5,8 @@ from ui import utility
 
 def train_models(model_name):
     model.train_model(model_name)
-
+    st.success(
+        f"Successfully generated a model named {model_name}.")
 
 def model_page():
     with st.container():
@@ -18,8 +19,8 @@ def model_page():
         # left_col, right_col = st.columns([1, 1])
         with st.container():
             model_names = utility.get_model_names()
-            model = st.radio('Model', model_names,)
-        st.write('#')
+            model = st.radio("Model", model_names,)
+        st.divider()
 
     with st.container():
         left_col, right_col = st.columns([2, 3], gap="large")
@@ -30,10 +31,12 @@ def model_page():
                 "Choose midi files", accept_multiple_files=True, type="mid")
 
     with st.container():
-        if st.button("Generate"):
-            if model_name:
+        generate=st.button("Generate")
+        st.divider()
+        if generate:
+            if model_name and uploaded_files:
                 utility.save_dataset(model_name, uploaded_files)
-                with st.spinner('Hold on for a new model'):
+                with st.spinner("Hold on for a new model"):
                     train_models(model_name)
             else:
-                st.warning("Enter a model name")
+                st.warning("Enter a model name and a dataset.")

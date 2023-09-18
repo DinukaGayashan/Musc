@@ -13,6 +13,7 @@ def homepage():
             options=["Music", "Models"],
             icons=["music-note-beamed", "robot"]
         )
+        # st.write("<a href='https://dinukagayashan.github.io/DinukaGayashan/' target='_blank' style='color: white; text-decoration: none; font-family:Reenie Beanie'>Dinuka Gayashan</a>", unsafe_allow_html=True)
 
     if selected == "Music":
         music_page.music_page()

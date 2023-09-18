@@ -13,7 +13,7 @@ def train_model(name):
     unique_notes = 128
 
     # Directory containing your MIDI files
-    midi_directory = f'datasets/{name}'  # Replace with the path to your MIDI files directory
+    midi_directory = f"datasets/{name}"  # Replace with the path to your MIDI files directory
 
     # Create lists to store input sequences and output sequences from multiple MIDI files
     all_input_sequences = []
@@ -30,7 +30,7 @@ def train_model(name):
             notes = []
 
             for msg in midi.play():
-                if msg.type == 'note_on':
+                if msg.type == "note_on":
                     notes.append(msg.note)
 
             # Create input sequences and corresponding output sequences
@@ -59,9 +59,9 @@ def train_model(name):
     model.add(LSTM(256, input_shape=(
         X.shape[1], X.shape[2]), return_sequences=True))
     model.add(LSTM(256))
-    model.add(Dense(unique_notes, activation='softmax'))
+    model.add(Dense(unique_notes, activation="softmax"))
 
-    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    model.compile(loss="categorical_crossentropy", optimizer="adam")
 
     # Train the model (you may need more epochs for better results)
     model.fit(X, y, epochs=10, batch_size=64)
