@@ -21,7 +21,7 @@ def train_model(name):
 
     # Iterate through the MIDI files in the directory
     for filename in os.listdir(midi_directory):
-        if filename.endswith(".mid"):
+        if filename.endswith(".mid") or filename.endswith(".midi"):
             midi_file_path = os.path.join(midi_directory, filename)
 
             # Load and preprocess MIDI data
@@ -64,7 +64,7 @@ def train_model(name):
     model.compile(loss="categorical_crossentropy", optimizer="adam")
 
     # Train the model (you may need more epochs for better results)
-    model.fit(X, y, epochs=10, batch_size=64)
+    model.fit(X, y, epochs=50, batch_size=64)
 
     # Save the trained model to a file
     utility.save_model(name,model)

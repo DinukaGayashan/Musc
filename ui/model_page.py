@@ -28,7 +28,7 @@ def model_page():
             model_name = st.text_input("Enter model name")
         with right_col.container():
             uploaded_files = st.file_uploader(
-                "Choose midi files", accept_multiple_files=True, type="mid")
+                "Choose midi files", accept_multiple_files=True, type=["mid","midi"])
         st.write("#")
     with st.container():
         generate = st.button("Generate")
@@ -38,7 +38,10 @@ def model_page():
                 if not utility.is_model_available(model_name):
                     utility.save_dataset(model_name, uploaded_files)
                     with st.spinner("Hold on for a new model"):
-                        train_models(model_name)
+                        try:
+                            train_models(model_name)
+                        except:
+                            st.error("Failed to generate model.")
                 else:
                     st.warning("Model with same name already exists.")
             else:

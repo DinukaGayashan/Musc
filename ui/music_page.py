@@ -37,7 +37,7 @@ def music_page():
         st.divider()
         if generate:
             with st.spinner("Hold on for a new melody"):
-                # try:
-                generate_melody(model, duration, tempo, temperature)
-                # except:
-                # st.error("Failed to generate a melody.")
+                try:
+                    generate_melody(model, duration, tempo, temperature)
+                except:
+                    st.error("Failed to generate a melody.")
