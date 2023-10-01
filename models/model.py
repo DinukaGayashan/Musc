@@ -2,7 +2,7 @@ import os
 import numpy as np
 from mido import MidiFile
 from keras.models import Sequential
-from keras.layers import LSTM, Dense
+from keras.layers import LSTM, Dense, Flatten, Dense, Dropout
 from keras.utils import to_categorical
 from ui import utility
 
@@ -55,16 +55,26 @@ def train_model(name):
     y = to_categorical(y, num_classes=unique_notes)
 
     # Build the LSTM model
-    model = Sequential()
-    model.add(LSTM(256, input_shape=(
-        X.shape[1], X.shape[2]), return_sequences=True))
-    model.add(LSTM(256))
-    model.add(Dense(unique_notes, activation="softmax"))
+    # model = Sequential()
+    # model.add(LSTM(256, input_shape=(
+    #     X.shape[1], X.shape[2]), return_sequences=True))
+    # model.add(LSTM(256))
+    # model.add(Dense(unique_notes, activation="softmax"))
 
-    model.compile(loss="categorical_crossentropy", optimizer="adam")
+    # model.compile(loss="categorical_crossentropy", optimizer="adam")
+
+    model = Sequential()  
+    model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True))
+    model.add(Dropout(0.2))  
+    model.add(LSTM(256))    
+    model.add(Flatten())  
+    model.add(Dense(256))  
+    model.add(Dropout(0.3))  
+    model.add(Dense(unique_notes, activation="softmax"))
+    model.compile(loss='categorical_crossentropy', optimizer='adam')  
 
     # Train the model (you may need more epochs for better results)
-    model.fit(X, y, epochs=50, batch_size=64)
+    model.fit(X, y, epochs=10, batch_size=64)
 
     # Save the trained model to a file
     utility.save_model(name,model)
