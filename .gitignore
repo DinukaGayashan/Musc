@@ -5,3 +5,4 @@ ui/__pycache__
 models/__pycache__
 datasets
 .vscode
+venv

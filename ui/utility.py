@@ -3,6 +3,8 @@ import os
 
 def get_model_names():
     directory = "models/trained_models"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     files = [os.path.splitext(file)[0] for file in os.listdir(directory)]
     return files
 
