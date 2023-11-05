@@ -2,11 +2,13 @@ import os
 import numpy as np
 from mido import MidiFile
 from keras.models import Sequential
-from keras.layers import LSTM, Dense, Flatten, Dense, Dropout
-from keras.utils import to_categorical
+from keras.layers import LSTM, Dense, Flatten, TimeDistributed, Dropout, Embedding, Activation, GRU, Bidirectional
+import tensorflow as tf
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import to_categorical
 from ui import utility
 
-def train_model(name):
+def finetune_model(name):
     # Define the sequence length and the number of unique notes you want to generate
     sequence_length = 100
     # Adjust based on your MIDI range (typically 128 for a full MIDI range)
@@ -60,7 +62,6 @@ def train_model(name):
     #     X.shape[1], X.shape[2]), return_sequences=True))
     # model.add(LSTM(256))
     # model.add(Dense(unique_notes, activation="softmax"))
-
     # model.compile(loss="categorical_crossentropy", optimizer="adam")
 
     model = Sequential()  
@@ -71,10 +72,52 @@ def train_model(name):
     model.add(Dense(256))  
     model.add(Dropout(0.3))  
     model.add(Dense(unique_notes, activation="softmax"))
-    model.compile(loss='categorical_crossentropy', optimizer='adam')  
+    model.compile(loss='categorical_crossentropy', optimizer='adam', run_eagerly=True)
+    
+    # model = Sequential()
+    # model.add(Embedding(input_dim=50, output_dim=512, batch_input_shape=(16, 100)))  # Specify batch_input_shape
+    # model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True,stateful=True))
+    # model.add(Dropout(0.2))
+    # model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True,stateful=True))
+    # model.add(Dropout(0.2))
+    # model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True,stateful=True))
+    # model.add(Dropout(0.2))
+    # model.add(TimeDistributed(Dense(50)))
+    # model.add(Activation('softmax'))
+    # model.compile(loss='categorical_crossentropy', optimizer='adam')
 
-    # Train the model (you may need more epochs for better results)
-    model.fit(X, y, epochs=10, batch_size=64)
+
+    # model = Sequential()
+
+    # # Add an Embedding layer to convert categorical data into continuous representations
+    # model.add(Embedding(input_dim=unique_notes, output_dim=100, input_length=X.shape[1]))
+
+    # # Add Bidirectional LSTM layers with more units
+    # model.add(Bidirectional(LSTM(512, return_sequences=True)))
+    # model.add(Dropout(0.3))
+
+    # # Add another Bidirectional LSTM layer
+    # model.add(Bidirectional(LSTM(512, return_sequences=True)))
+    # model.add(Dropout(0.3))
+
+    # # Use GRU layers for capturing different temporal dependencies
+    # model.add(GRU(256, return_sequences=True))
+    # model.add(Dropout(0.2))
+
+    # # Add a Dense layer with ReLU activation
+    # model.add(Dense(256, activation='relu'))
+    # model.add(Dropout(0.3))
+
+    # # Output layer with a softmax activation for multiclass classification
+    # model.add(Dense(256, activation="softmax"))
+
+    # # Compile the model with the Adam optimizer and categorical crossentropy loss
+    # model.compile(loss='categorical_crossentropy', optimizer=Adam(learning_rate=0.001))
+
+
+    # Fit the model with validation data and callbacks
+    model.fit(X, y, batch_size=128, epochs=50)
+    
 
     # Save the trained model to a file
     utility.save_model(name,model)

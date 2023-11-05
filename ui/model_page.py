@@ -1,10 +1,10 @@
 import streamlit as st
-from models import model
+from models import finetune_model
 from ui import utility
 
 
 def train_models(model_name):
-    model.train_model(model_name)
+    finetune_model.finetune_model(model_name)
     st.success(
         f"Successfully generated a model named {model_name}.")
 
@@ -38,10 +38,10 @@ def model_page():
                 if not utility.is_model_available(model_name):
                     utility.save_dataset(model_name, uploaded_files)
                     with st.spinner("Hold on for a new model"):
-                        try:
-                            train_models(model_name)
-                        except:
-                            st.error("Failed to generate model.")
+                        # try:
+                        train_models(model_name)
+                        # except:
+                            # st.error("Failed to generate model.")
                 else:
                     st.warning("Model with same name already exists.")
             else:
