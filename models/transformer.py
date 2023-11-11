@@ -11,7 +11,7 @@ class PopMusicTransformer(object):
     ########################################
     def __init__(self, checkpoint, is_training=False):
         # load dictionary
-        self.dictionary_path = '{}/dictionary.pkl'.format(checkpoint)
+        self.dictionary_path = 'models/trained_models/REMI-tempo-checkpoint/dictionary.pkl'
         self.event2word, self.word2event = pickle.load(open(self.dictionary_path, 'rb'))
         # model settings
         self.x_len = 512
