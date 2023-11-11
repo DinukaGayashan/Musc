@@ -1,32 +1,28 @@
-import numpy as np
-import io
-import pretty_midi
 import uuid
-from scipy.io import wavfile
-from ui import utility
+from models import melody_formatter
 from models.transformer import PopMusicTransformer
+import time
 
 def generate_music(model, duration, tempo, temperature):
 
+    temp_name="generated_melodies/temp.midi"
+    midi_file_name = f"generated_melodies/generated_melody_{uuid.uuid1()}.midi"
+
+    start=time.time()
+
     model = PopMusicTransformer(
-        checkpoint=f"models/trained_models/{model}",
-        is_training=False)
+        checkpoint=f"models/trained_models/{model}")
     
     model.generate(
-        n_target_bar=16,
-        temperature=1.2)
+        name=temp_name,
+        n_target_bar=duration*tempo,
+        temperature=temperature)
+    
+    melody_formatter.change_tempo_by_factor(midi_file=temp_name,output_file=temp_name,factor=tempo)
+    melody_formatter.limit_midi_duration(input_file=temp_name,output_file=midi_file_name,max_duration=duration)
+    # melody_formatter.adjust_tempo_and_limit_duration(input_file=temp_name,output_file=midi_file_name,tempo_factor=tempo,max_duration_seconds=duration)
 
-
-    midi_file_name = f"generated_melodies/generated_melody_{uuid.uuid1()}.mid"
-
-
-    # utility.save_melody(midi_file_name, output_midi_file)
-
-    midi_data = pretty_midi.PrettyMIDI(midi_file_name)
-    audio_data = midi_data.fluidsynth()
-    audio_data = np.int16(
-        audio_data / np.max(np.abs(audio_data)) * 32767 * 0.9
-    )
-    virtual_file = io.BytesIO()
-    wavfile.write(virtual_file, 44100, audio_data)
-    return virtual_file
+    end=time.time()
+    print(f"Elapsed time: {end-start} seconds")
+    
+    return melody_formatter.midi_to_wave(midi_file_name)

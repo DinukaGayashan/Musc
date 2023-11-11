@@ -213,7 +213,7 @@ def word_to_event(words, word2event):
         events.append(Event(event_name, None, event_value, None))
     return events
 
-def write_midi(words, word2event):
+def write_midi(name, words, word2event):
     events = word_to_event(words, word2event)
     # get downbeat and note (no time)
     temp_notes = []
@@ -321,5 +321,4 @@ def write_midi(words, word2event):
                 miditoolkit.midi.containers.Marker(text=c[1], time=c[0]))
     
     # write
-    # midi.dump(output_path)
-    utility.save_temp(midi)
+    utility.save_temp(name, midi)

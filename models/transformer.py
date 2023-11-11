@@ -135,7 +135,7 @@ class PopMusicTransformer(object):
     ########################################
     # generate
     ########################################
-    def generate(self, n_target_bar, temperature):
+    def generate(self, name, n_target_bar, temperature):
         words = []
         for _ in range(self.batch_size):
             ws = [self.event2word['Bar_None']]
@@ -193,6 +193,7 @@ class PopMusicTransformer(object):
             batch_m = _new_mem
         # write
         utils.write_midi(
+            name=name,
             words=words[0],
             word2event=self.word2event)
 

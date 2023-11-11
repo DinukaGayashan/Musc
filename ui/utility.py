@@ -37,8 +37,8 @@ def save_melody(name, file):
     file.save(name)
 
 
-def save_temp(file):
+def save_temp(name, file):
     folder_path = "generated_melodies"
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-    file.dump('generated_melodies/temp.midi')
+    file.dump(name)

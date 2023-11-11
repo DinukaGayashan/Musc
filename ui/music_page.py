@@ -30,7 +30,7 @@ def music_page():
             tempo = st.select_slider(
                 "Tempo", options=[0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0], value=1.0)
             temperature = st.slider(
-                "Temperature", 0.1, 1.0, 0.5)
+                "Temperature", 1.0, 2.0,value=1.2)
         st.write("#")
     with st.container():
         generate = st.button("Generate")
