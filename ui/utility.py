@@ -23,11 +23,9 @@ def save_dataset(dataset_name, uploaded_files):
             f.write(uploaded_file.getvalue())
 
 
-def save_model(name):
-    folder_path = f"models/trained_models/{name}"
+def save_model(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-    # model.save(f"models/trained_models/{name}.keras")
 
 
 def save_melody(name, file):
