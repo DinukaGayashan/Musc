@@ -23,7 +23,7 @@ def music_page():
         left_col, right_col = st.columns([1, 1])
         with left_col.container():
             model_names = utility.get_model_names()
-            model = st.radio("Model", model_names,)
+            model = st.radio("Model", model_names)
         with right_col.container():
             duration = st.number_input(
                 "Duration (s)", min_value=0, step=1, value=30)

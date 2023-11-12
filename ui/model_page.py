@@ -13,7 +13,7 @@ def model_page():
     with st.container():
         st.title("Finetune")
         st.caption(
-            "Finetune models with custom datasets. Provide a dataset and train the models.")
+            "Finetune models with custom datasets. Provide a dataset and finetune a model.")
         st.divider()
 
     # with st.container():
