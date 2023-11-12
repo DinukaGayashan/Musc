@@ -1,19 +1,19 @@
 import streamlit as st
-from models import model
+from models import finetune_model
 from ui import utility
 
 
 def train_models(model_name):
-    model.train_model(model_name)
+    finetune_model.finetune_model(model_name)
     st.success(
-        f"Successfully generated a model named {model_name}.")
+        f"Successfully finetuned a model named {model_name}.")
 
 
 def model_page():
     with st.container():
-        st.title("Models")
+        st.title("Finetune")
         st.caption(
-            "Generate music generating models with custom datasets. Provide a dataset and Train the models and manage them.")
+            "Finetune models with custom datasets. Provide a dataset and finetune a model.")
         st.divider()
 
     # with st.container():
@@ -28,20 +28,20 @@ def model_page():
             model_name = st.text_input("Enter model name")
         with right_col.container():
             uploaded_files = st.file_uploader(
-                "Choose midi files", accept_multiple_files=True, type=["mid","midi"])
+                "Choose midi files", accept_multiple_files=True, type=["mid", "midi"])
         st.write("#")
     with st.container():
-        generate = st.button("Generate")
+        generate = st.button("Finetune")
         st.divider()
         if generate:
             if model_name and uploaded_files:
                 if not utility.is_model_available(model_name):
                     utility.save_dataset(model_name, uploaded_files)
-                    with st.spinner("Hold on for a new model"):
-                        try:
-                            train_models(model_name)
-                        except:
-                            st.error("Failed to generate model.")
+                    with st.spinner("Hold on for a finetuned model."):
+                        # try:
+                        train_models(model_name)
+                        # except:
+                        # st.error("Failed to generate model.")
                 else:
                     st.warning("Model with same name already exists.")
             else:

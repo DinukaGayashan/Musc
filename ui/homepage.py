@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from ui import music_page, model_page
+from ui import music_page, model_page, history_page
 
 
 def homepage():
@@ -10,13 +10,22 @@ def homepage():
         st.divider()
         selected = option_menu(
             menu_title=None,
-            options=["Music", "Models"],
-            icons=["music-note-beamed", "robot"]
+            options=["Melody", "Finetune", "History"],
+            icons=["music-note-beamed", "gear", "clock"]
         )
-        # st.write("<a href='https://dinukagayashan.github.io/DinukaGayashan/' target='_blank' style='color: white; text-decoration: none; font-family:Reenie Beanie'>Dinuka Gayashan</a>", unsafe_allow_html=True)
+        # st.markdown(
+        #     "<br><br>"
+        #     "<div style='text-align: center;'>"
+        #     "<a href='https://dinukagayashan.github.io/DinukaGayashan/' target='_blank' style='color: white; text-decoration: none; font-family:Reenie Beanie'>Dinuka Gayashan</a>"
+        #     "</div>",
+        #     unsafe_allow_html=True
+        # )
 
-    if selected == "Music":
+    if selected == "Melody":
         music_page.music_page()
 
-    if selected == "Models":
+    if selected == "Finetune":
         model_page.model_page()
+
+    if selected == "History":
+        history_page.history_page()

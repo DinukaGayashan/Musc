@@ -1,10 +1,30 @@
 import os
+import datetime
 
 
 def get_model_names():
     directory = "models/trained_models"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     files = [os.path.splitext(file)[0] for file in os.listdir(directory)]
     return files
+
+
+def get_melody_names():
+    directory = "generated_melodies"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    files_and_times = {}
+    for file in os.listdir(directory):
+        file_path = os.path.join(directory, file)
+        creation_time = datetime.datetime.fromtimestamp(os.path.getctime(file_path))
+        files_and_times[file] = creation_time
+
+    del files_and_times['temp.midi']
+
+    sorted_files_and_times = dict(sorted(files_and_times.items(), key=lambda item: item[1],reverse=True))
+    return sorted_files_and_times
 
 
 def is_model_available(model_name):
@@ -21,11 +41,9 @@ def save_dataset(dataset_name, uploaded_files):
             f.write(uploaded_file.getvalue())
 
 
-def save_model(name, model):
-    folder_path = "models/trained_models"
+def save_model(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-    model.save(f"models/trained_models/{name}.keras")
 
 
 def save_melody(name, file):
@@ -33,3 +51,17 @@ def save_melody(name, file):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     file.save(name)
+
+
+def delete_melody(name):
+    folder_path = "generated_melodies"
+    file_path = os.path.join(folder_path, name)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+
+def save_temp(name, file):
+    folder_path = "generated_melodies"
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+    file.dump(name)
