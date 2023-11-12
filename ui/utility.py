@@ -14,7 +14,6 @@ def get_melody_names():
     directory = "generated_melodies"
     if not os.path.exists(directory):
         os.makedirs(directory)
-    # files = [os.path.splitext(file)[0] for file in os.listdir(directory)]
 
     files_and_times = {}
     for file in os.listdir(directory):
@@ -52,6 +51,13 @@ def save_melody(name, file):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     file.save(name)
+
+
+def delete_melody(name):
+    folder_path = "generated_melodies"
+    file_path = os.path.join(folder_path, name)
+    if os.path.exists(file_path):
+        os.remove(file_path)
 
 
 def save_temp(name, file):
