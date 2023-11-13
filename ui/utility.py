@@ -1,6 +1,6 @@
 import os
 import datetime
-
+import shutil
 
 def get_model_names():
     directory = "models/trained_models"
@@ -8,6 +8,23 @@ def get_model_names():
         os.makedirs(directory)
     files = [os.path.splitext(file)[0] for file in os.listdir(directory)]
     return files
+
+
+def get_finetuned_models():
+    directory = "models/trained_models"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    files_and_times = {}
+    for file in os.listdir(directory):
+        file_path = os.path.join(directory, file)
+        creation_time = datetime.datetime.fromtimestamp(os.path.getctime(file_path))
+        files_and_times[file] = creation_time
+
+    del files_and_times['REMI-tempo-checkpoint']
+
+    sorted_files_and_times = dict(sorted(files_and_times.items(), key=lambda item: item[1],reverse=True))
+    return sorted_files_and_times
 
 
 def get_melody_names():
@@ -44,6 +61,17 @@ def save_dataset(dataset_name, uploaded_files):
 def save_model(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
+
+
+def delete_model(name):
+    folder_path = "models/trained_models"
+    file_path = os.path.join(folder_path, name)
+    if os.path.exists(file_path):
+        shutil.rmtree(file_path)
+    folder_path = "datasets"
+    file_path = os.path.join(folder_path, name)
+    if os.path.exists(file_path):
+        shutil.rmtree(file_path)
 
 
 def save_melody(name, file):
