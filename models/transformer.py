@@ -4,6 +4,9 @@ from models import modules
 import pickle
 from models import utils
 import time
+from dotenv import dotenv_values
+
+config=dotenv_values(".env")
 
 class PopMusicTransformer(object):
     ########################################
@@ -11,7 +14,7 @@ class PopMusicTransformer(object):
     ########################################
     def __init__(self, checkpoint, is_training=False):
         # load dictionary
-        self.dictionary_path = 'models/trained_models/REMI-tempo-checkpoint/dictionary.pkl'
+        self.dictionary_path = f"{config['TRAINED_MODELS_FOLDER']}/{config['DEFAULT_MODEL_NAME']}/dictionary.pkl"
         self.event2word, self.word2event = pickle.load(open(self.dictionary_path, 'rb'))
         # model settings
         self.x_len = 512
@@ -31,7 +34,7 @@ class PopMusicTransformer(object):
             self.batch_size = 1
         else:
             self.batch_size = 1
-        self.checkpoint_path = '{}/model'.format(checkpoint)
+        self.checkpoint_path = f"{checkpoint}/model"
         self.load_model()
 
     ########################################

@@ -1,17 +1,19 @@
-import os
 from glob import glob
 from models.transformer import PopMusicTransformer
 from ui import utility
+from dotenv import dotenv_values
+
+config=dotenv_values(".env")
 
 def finetune_model(name):
     # declare model
     # utility.save_model(name)
 
     model = PopMusicTransformer(
-        checkpoint="models/trained_models/REMI-tempo-checkpoint",
+        checkpoint=f"{config['TRAINED_MODELS_FOLDER']}/{config['DEFAULT_MODEL_NAME']}",
         is_training=True)
     # prepare data
-    midi_paths = glob(f"datasets/{name}/*.mid*") # you need to revise it
+    midi_paths = glob(f"{config['DATASET_FOLDER']}/{name}/*.mid*") # you need to revise it
     training_data = model.prepare_data(midi_paths=midi_paths)
 
     # check output checkpoint folder
@@ -22,7 +24,7 @@ def finetune_model(name):
     # if use "REMI-tempo-checkpoint"
     # for example: my-love, cute-doggy, ...
     ####################################
-    output_checkpoint_folder = f"models/trained_models/{name}" # your decision
+    output_checkpoint_folder = f"{config['TRAINED_MODELS_FOLDER']}/{name}" # your decision
     utility.save_model(output_checkpoint_folder)
     
     # finetune

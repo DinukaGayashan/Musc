@@ -16,7 +16,7 @@ def history_page():
                 st.write(melody.split('.')[0],melodies[melody])
                 col_1, col_2 = st.columns([3, 1])
                 with col_1.container():
-                    wave_file = midi_to_wave(f"generated_melodies/{melody}")
+                    wave_file = midi_to_wave(utility.get_melody_name(melody))
                     st.audio(wave_file, format="audio/wav")
                 with col_2.container():
                     delete=st.button(f"Delete",key=melody)
