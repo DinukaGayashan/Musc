@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
+
 from ui import music_page, model_page, history_page, about_page
 
 
@@ -10,18 +11,14 @@ def homepage():
         st.divider()
         selected = option_menu(
             menu_title=None,
-            options=["Melody", "Finetune", "History","About"],
+            options=["Melody", "Finetune", "History", "About"],
             icons=["music-note-beamed", "gear", "clock", "info-circle"]
         )
-
     if selected == "Melody":
         music_page.music_page()
-
-    if selected == "Finetune":
+    elif selected == "Finetune":
         model_page.model_page()
-
-    if selected == "History":
+    elif selected == "History":
         history_page.history_page()
-
-    if selected == "About":
+    elif selected == "About":
         about_page.about_page()

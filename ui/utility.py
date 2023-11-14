@@ -1,9 +1,10 @@
-import os
 import datetime
+import os
 import shutil
+
 from dotenv import dotenv_values
 
-config=dotenv_values(".env")
+config = dotenv_values(".env")
 
 
 def get_model_names():
@@ -18,16 +19,13 @@ def get_finetuned_models():
     directory = config['TRAINED_MODELS_FOLDER']
     if not os.path.exists(directory):
         os.makedirs(directory)
-
     files_and_times = {}
     for file in os.listdir(directory):
         file_path = os.path.join(directory, file)
         creation_time = datetime.datetime.fromtimestamp(os.path.getctime(file_path))
         files_and_times[file] = creation_time
-
     del files_and_times[config['DEFAULT_MODEL_NAME']]
-
-    sorted_files_and_times = dict(sorted(files_and_times.items(), key=lambda item: item[1],reverse=True))
+    sorted_files_and_times = dict(sorted(files_and_times.items(), key=lambda item: item[1], reverse=True))
     return sorted_files_and_times
 
 
@@ -39,16 +37,13 @@ def get_melody_names():
     directory = config['MELODIES_FOLDER']
     if not os.path.exists(directory):
         os.makedirs(directory)
-
     files_and_times = {}
     for file in os.listdir(directory):
         file_path = os.path.join(directory, file)
         creation_time = datetime.datetime.fromtimestamp(os.path.getctime(file_path))
         files_and_times[file] = creation_time
-
     del files_and_times[config['TEMP_MIDI_NAME']]
-
-    sorted_files_and_times = dict(sorted(files_and_times.items(), key=lambda item: item[1],reverse=True))
+    sorted_files_and_times = dict(sorted(files_and_times.items(), key=lambda item: item[1], reverse=True))
     return sorted_files_and_times
 
 
@@ -60,7 +55,6 @@ def save_dataset(dataset_name, uploaded_files):
     folder_path = f"{config['DATASET_FOLDER']}/{dataset_name}"
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-
     for uploaded_file in uploaded_files:
         with open(os.path.join(folder_path, uploaded_file.name), "wb") as f:
             f.write(uploaded_file.getvalue())

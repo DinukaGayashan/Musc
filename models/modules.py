@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+
 def embedding_lookup(lookup_table, x):
     return tf.compat.v1.nn.embedding_lookup(lookup_table, x)
 
@@ -49,10 +50,10 @@ def positionwise_FF(inp, d_model, d_inner, dropout, kernel_initializer,
                     scope='ff', is_training=True):
     output = inp
     with tf.compat.v1.variable_scope(scope):
-        output = tf.keras.layers.Dense(d_inner, activation=tf.nn.relu, 
+        output = tf.keras.layers.Dense(d_inner, activation=tf.nn.relu,
                                        kernel_initializer=kernel_initializer, name='layer_1')(inp)
         output = tf.keras.layers.Dropout(dropout, name='drop_1')(output, training=is_training)
-        output = tf.keras.layers.Dense(d_model, activation=tf.nn.relu, 
+        output = tf.keras.layers.Dense(d_model, activation=tf.nn.relu,
                                        kernel_initializer=kernel_initializer, name='layer_2')(output)
         output = tf.keras.layers.Dropout(dropout, name='drop_2')(output, training=is_training)
         output = tf.keras.layers.LayerNormalization(axis=-1)(output + inp)
@@ -101,11 +102,11 @@ def rel_multihead_attn(w, r, r_w_bias, r_r_bias, attn_mask, mems, d_model,
 
         cat = tf.concat([mems, w], 0) if mems is not None and mems.shape.ndims > 1 else w
 
-        w_heads = tf.keras.layers.Dense(3 * n_head * d_head, use_bias=False, 
+        w_heads = tf.keras.layers.Dense(3 * n_head * d_head, use_bias=False,
                                         kernel_initializer=kernel_initializer, name='qkv')(cat)
         r_head_k = tf.keras.layers.Dense(n_head * d_head, use_bias=False,
                                          kernel_initializer=kernel_initializer, name='r')(r)
-        
+
         w_head_q, w_head_k, w_head_v = tf.split(w_heads, 3, -1)
         w_head_q = w_head_q[-qlen:]
 
@@ -135,7 +136,7 @@ def rel_multihead_attn(w, r, r_w_bias, r_r_bias, attn_mask, mems, d_model,
         size_t = tf.shape(attn_vec)
         attn_vec = tf.reshape(attn_vec, [size_t[0], size_t[1], n_head * d_head])
 
-        attn_out = tf.keras.layers.Dense(d_model, use_bias=False, 
+        attn_out = tf.keras.layers.Dense(d_model, use_bias=False,
                                          kernel_initializer=kernel_initializer, name='o')(attn_vec)
         attn_out = tf.keras.layers.Dropout(dropout)(attn_out, training=is_training)
         output = tf.keras.layers.LayerNormalization(axis=-1)(attn_out + w)
@@ -179,9 +180,9 @@ def transformer(dec_inp, target, mems, n_token, n_layer, d_model, d_embed,
             d_proj=d_model,
             initializer=initializer,
             proj_initializer=proj_initializer)
-        
+
         attn_mask = _create_mask(qlen, mlen, same_length)
-        
+
         pos_seq = tf.range(klen - 1, -1, -1.0)
         if clamp_len > 0:
             pos_seq = tf.minimum(pos_seq, clamp_len)
@@ -195,7 +196,6 @@ def transformer(dec_inp, target, mems, n_token, n_layer, d_model, d_embed,
             mems = [None] * n_layer
 
         for i in range(n_layer):
-            # cache new mems
             new_mems.append(_cache_mem(output, mems[i], mem_len))
 
             with tf.compat.v1.variable_scope('layer_{}'.format(i)):

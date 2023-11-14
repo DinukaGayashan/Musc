@@ -1,4 +1,5 @@
 import streamlit as st
+
 from models import melody_generator
 from ui import utility
 
@@ -8,7 +9,8 @@ def generate_melody(model, duration, tempo, temperature):
         model, duration, tempo, temperature)
     st.audio(audio_file)
     st.success(
-        f"Successfully generated a melody of {duration} seconds with {model} model with tempo of {tempo}x and temperature of {temperature}.")
+        f"Successfully generated a melody of {duration} seconds with {model} model with tempo of {tempo}x and "
+        f"temperature of {temperature}.")
 
 
 def music_page():
@@ -17,7 +19,6 @@ def music_page():
         st.caption(
             "Generate musical melodies with custom requirements. Customize the options and generate melody.")
         st.divider()
-
     with st.container():
         st.subheader("Options")
         left_col, right_col = st.columns([1, 1])

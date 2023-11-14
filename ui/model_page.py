@@ -1,4 +1,5 @@
 import streamlit as st
+
 from models import finetune_model
 from ui import utility
 
@@ -13,27 +14,24 @@ def model_page():
     with st.container():
         st.title("Finetune")
         st.caption(
-            "Finetune models with custom datasetsand manage them.")
+            "Finetune models with custom datasets and manage them.")
         st.divider()
-
-
     model_names = utility.get_finetuned_models()
-    if len(model_names)>0:
+    if len(model_names) > 0:
         with st.container():
             st.subheader("Finetuned Models")
             for model in model_names:
-                col_1,col_2,col_3 = st.columns([2, 2, 1])
+                col_1, col_2, col_3 = st.columns([2, 2, 1])
                 with col_1.container():
-                        st.write(f"**{model}**")
+                    st.write(f"**{model}**")
                 with col_2.container():
                     st.write(model_names[model])
                 with col_3.container():
-                    delete=st.button('Delete',key=model)
+                    delete = st.button('Delete', key=model)
                     if delete:
                         utility.delete_model(model)
                         st.experimental_rerun()
             st.divider()
-
     with st.container():
         st.subheader("Finetine Model")
         left_col, right_col = st.columns([2, 3], gap="large")
