@@ -45,7 +45,6 @@ def limit_midi_duration(input_file, output_file, max_duration):
         track.clear()
         track.extend(keep)
     utility.save_melody(output_file, midi_file)
-    # midi_file.save(output_file)
 
 
 def midi_to_wave(midi_file_name):
