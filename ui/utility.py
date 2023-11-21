@@ -53,8 +53,9 @@ def is_model_available(model_name):
 
 def save_dataset(dataset_name, uploaded_files):
     folder_path = f"{config['DATASET_FOLDER']}/{dataset_name}"
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
+    if os.path.exists(folder_path):
+        shutil.rmtree(folder_path)
+    os.makedirs(folder_path)
     for uploaded_file in uploaded_files:
         with open(os.path.join(folder_path, uploaded_file.name), "wb") as f:
             f.write(uploaded_file.getvalue())
