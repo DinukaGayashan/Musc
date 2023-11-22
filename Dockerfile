@@ -13,8 +13,15 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
+
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
 
 COPY . .
 
-RUN python3.10 -m pip install tensorflow keras numpy scipy streamlit streamlit-option-menu pretty_midi pyfluidsynth mido
+RUN python3.10 -m pip install -r requirements.txt
+
+EXPOSE 8501
+
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+
+ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
