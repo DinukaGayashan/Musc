@@ -9,7 +9,7 @@ def generate_melody(model, duration, tempo, temperature):
         model, duration, tempo, temperature)
     st.audio(audio_file)
     st.success(
-        f"Successfully generated a melody of {duration} seconds with {model} model with tempo of {tempo}x and "
+        f"Successfully generated a melody with {model} model with {tempo}x tempo and "
         f"temperature of {temperature}.")
 
 
