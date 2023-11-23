@@ -8,10 +8,10 @@ from ui import utility
 config = dotenv_values(".env")
 
 
-def finetune_model(name):
+def create_model(name, model=None, from_scratch=False):
     model = PopMusicTransformer(
-        checkpoint=f"{config['TRAINED_MODELS_FOLDER']}/{config['DEFAULT_MODEL_NAME']}",
-        is_training=True)
+        checkpoint=f"{config['TRAINED_MODELS_FOLDER']}/{model}",
+        is_training=True, train_from_scratch=from_scratch)
 
     midi_paths = glob(f"{config['DATASET_FOLDER']}/{name}/*.mid*")
     training_data = model.prepare_data(midi_paths=midi_paths)

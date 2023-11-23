@@ -11,12 +11,12 @@ def homepage():
         st.divider()
         selected = option_menu(
             menu_title=None,
-            options=["Melody", "Finetune", "History", "About"],
+            options=["Melody", "Models", "History", "About"],
             icons=["music-note-beamed", "gear", "clock", "info-circle"]
         )
     if selected == "Melody":
         music_page.music_page()
-    elif selected == "Finetune":
+    elif selected == "Models":
         model_page.model_page()
     elif selected == "History":
         history_page.history_page()
