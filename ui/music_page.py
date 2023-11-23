@@ -37,8 +37,11 @@ def music_page():
         generate = st.button("Generate")
         st.divider()
         if generate:
-            with st.spinner("Hold on for a new melody."):
-                try:
-                    generate_melody(model, duration, tempo, temperature)
-                except:
-                    st.error("Failed to generate a melody.")
+            if model is not None:
+                with st.spinner("Hold on for a new melody."):
+                    try:
+                        generate_melody(model, duration, tempo, temperature)
+                    except:
+                        st.error("Failed to generate a melody.")
+            else:
+                st.warning("Model not selected.")

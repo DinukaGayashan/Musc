@@ -49,12 +49,17 @@ def delete_model(name):
 
 def save_dataset(dataset_name, uploaded_files):
     folder_path = f"{config['DATASET_FOLDER']}/{dataset_name}"
-    if os.path.exists(folder_path):
-        shutil.rmtree(folder_path)
+    delete_dataset(dataset_name)
     os.makedirs(folder_path)
     for uploaded_file in uploaded_files:
         with open(os.path.join(folder_path, uploaded_file.name), "wb") as f:
             f.write(uploaded_file.getvalue())
+
+
+def delete_dataset(dataset_name):
+    folder_path = f"{config['DATASET_FOLDER']}/{dataset_name}"
+    if os.path.exists(folder_path):
+        shutil.rmtree(folder_path)
 
 
 def get_melody_name(name):
