@@ -1,6 +1,6 @@
 generated_melodies
-models/trained_models
-generators/__pycache__
+models/trained_models/*
+!models/trained_models/dictionary.pkl
 ui/__pycache__
 models/__pycache__
 datasets
