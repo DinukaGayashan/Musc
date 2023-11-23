@@ -23,12 +23,12 @@ def about_page():
             st.write("")
         with st.expander("Models"):
             st.caption(
-                "Generate of finetune models with custom datasets and manage them.")
-            st.caption("- Available Models - Currently available generated and finetuned models are listed here with the name and "
+                "Generate or finetune models with custom datasets and manage them.")
+            st.caption("- Available Models - Currently available generated and finetuned models are listed with the name and "
                        "the created date, unwanted ones can be deleted.")
             st.caption("- Create Model - New model can be created. Default option is to generate model from scratch. "
                        "Select finetune if finetuning is required and select the model for finetuning. "
-                       "Enter a name for the model and choose midi files and create a model.")
+                       "Enter a name for the new model and choose midi files and create a model.")
             st.write("")
         with st.expander("History"):
             st.caption("Previously generated musical melodies.")
