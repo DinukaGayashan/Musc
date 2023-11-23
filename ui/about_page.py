@@ -8,21 +8,27 @@ def about_page():
             "Get to know about Musc.")
         st.divider()
     with st.container():
-        st.write("Musc lets you to generate customized musical melodies. There are four sections to be discovered.")
+        st.write(
+            "Generate customized musical melodies with **Musc**. Discover in four sections.")
         with st.expander("Melody"):
             st.caption("Generate musical melodies with custom requirements.")
-            st.caption("- Model - Select the model you want to generate music with; select one from the default or "
-                       "finetuned ones.")
-            st.caption("- Duration - Duration of the melody; how long the melody should be.")
-            st.caption("- Tempo - Tempo of the melody; how speedy the melody should be.")
-            st.caption("- Temperature - Temperature of the melody; how varied the notes of the melody should be.")
+            st.caption(
+                "- Model - Select the model you want to generate music with; select which genre or type of music is required.")
+            st.caption(
+                "- Duration - Duration of the melody; how long the melody should be.")
+            st.caption(
+                "- Tempo - Tempo of the melody; how speedy the melody should be.")
+            st.caption(
+                "- Temperature - Temperature of the melody; how varied the notes of the melody should be.")
             st.write("")
-        with st.expander("Finetune"):
-            st.caption("Finetune models with custom datasets and manage them.")
-            st.caption("- Finetuned Models - Currently available finetuned models are listed here with the name and "
+        with st.expander("Models"):
+            st.caption(
+                "Generate of finetune models with custom datasets and manage them.")
+            st.caption("- Available Models - Currently available generated and finetuned models are listed here with the name and "
                        "the created date, unwanted ones can be deleted.")
-            st.caption("- Finetune Models - New finetuned model can be created. Enter a name for the model and "
-                       "choose midi files and finetune a model.")
+            st.caption("- Create Model - New model can be created. Default option is to generate model from scratch. "
+                       "Select finetune if finetuning is required and select the model for finetuning. "
+                       "Enter a name for the model and choose midi files and create a model.")
             st.write("")
         with st.expander("History"):
             st.caption("Previously generated musical melodies.")
