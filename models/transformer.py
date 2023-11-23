@@ -221,13 +221,13 @@ class PopMusicTransformer(object):
         segments = np.array(segments)
         return segments
 
-    def finetune(self, training_data, output_checkpoint_folder):
+    def train(self, training_data, output_checkpoint_folder):
         index = np.arange(len(training_data))
         np.random.shuffle(index)
         training_data = training_data[index]
         num_batches = len(training_data) // self.batch_size
         st = time.time()
-        for e in range(10):
+        for e in range(100):
             total_loss = []
             for i in range(num_batches):
                 segments = training_data[self.batch_size *

@@ -19,6 +19,6 @@ def create_model(name, model=None, from_scratch=False):
     output_checkpoint_folder = f"{config['TRAINED_MODELS_FOLDER']}/{name}"
     utility.save_model(output_checkpoint_folder)
 
-    model.finetune(training_data=training_data,
+    model.train(training_data=training_data,
                    output_checkpoint_folder=output_checkpoint_folder)
     model.close()
