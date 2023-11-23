@@ -15,8 +15,8 @@ Music is called a universal language because music communicates feelings and emo
 ## Features
 
 - **Melody Generation:** Choose model, customize duration, tempo, temperature and save generated melodies.
-- **Finetune Models:** Upload custom datasets, finetune models, and manage models.
-- **History:** View timestamped melodies, playback, save, and delete from history.
+- **Model Generation:** Upload custom datasets, generate from scratch or finetune models, and manage models.
+- **View History:** View timestamped melodies, playback, save, and delete from history.
 
 
 ## Setup
@@ -29,8 +29,8 @@ Follow these steps to set up and run **Musc** on your local machine:
     cd musc
     ```
 
-2. **Add default model:**
-    Make sure to download and place default model in the path `models/trained_models`. Download it [here](https://www.dropbox.com/scl/fo/712kwocq97k8wnll6fkfb/h?rlkey=9981vx4vvqxtvqt99ac64awzu&dl=0).
+2. **Add Pre-trained models:**
+    (Optional) Download and place pre-trained models at `models/trained_models`. Available here [here](https://www.dropbox.com/scl/fo/712kwocq97k8wnll6fkfb/h?rlkey=l54ptzdhzuuqezdd7jcmt9rwf&dl=0).
 
 3. **Install Python:**
     Make sure Python 3.10 is installed. Download it from [python.org](https://www.python.org/).
