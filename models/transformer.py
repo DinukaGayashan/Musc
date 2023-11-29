@@ -3,7 +3,6 @@ import time
 
 import numpy as np
 import tensorflow as tf
-from dotenv import dotenv_values
 
 from models import modules
 from models import utils
