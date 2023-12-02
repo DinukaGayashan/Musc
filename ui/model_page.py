@@ -62,10 +62,10 @@ def model_page():
                         try:
                             train_models(model_name, model,
                                          from_scratch=not finetune)
-                            utility.delete_dataset(model_name)
                         except:
                             utility.delete_model(model_name)
                             st.error("Failed to generate model.")
+                    utility.delete_dataset(model_name)
                 else:
                     st.warning("Model with same name already exists.")
             else:
