@@ -25,7 +25,7 @@ Follow these steps to set up and run **Musc** on your local machine:
 
 1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-username/musc.git
+    git clone https://github.com/DinukaGayashan/Musc.git
     cd musc
     ```
 
