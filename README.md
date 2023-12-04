@@ -30,7 +30,7 @@ Follow these steps to set up and run **Musc** on your local machine:
     ```
 
 2. **Add Pre-trained models:**
-    (Optional) Download and place pre-trained models at `models/trained_models`. Available here [here](https://www.dropbox.com/scl/fo/712kwocq97k8wnll6fkfb/h?rlkey=l54ptzdhzuuqezdd7jcmt9rwf&dl=0).
+    (Optional) Download and place pre-trained models at `models/trained_models`. Available [here](https://www.dropbox.com/scl/fo/55i7uuueeew7197dl4vov/h?rlkey=jqi7gjkh454nc0798xxyj8f2r&dl=0).
 
 3. **Install Python:**
     Make sure Python 3.10 is installed. Download it from [python.org](https://www.python.org/).
@@ -61,6 +61,8 @@ Or else to run with Docker by replacing steps 3 to 5:
     ```
 
 <br>
+
+Samples available at [SoundColud](https://soundcloud.com/dinuka-gayashan/sets/musc).
 
 This project is highly inspired by [Pop Music Transformer: Beat-based Modeling and Generation of Expressive Pop Piano Compositions](https://paperswithcode.com/paper/pop-music-transformer-generating-music-with)
 
